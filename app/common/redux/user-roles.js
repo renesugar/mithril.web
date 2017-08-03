@@ -42,7 +42,7 @@ export const createUserRole = (id, body) => invoke({
 });
 
 export const deleteUserRole = (user_id, id) => invoke({
-  endpoint: `${API_URL}/admin/users/${user_id}/roles/${id}`,
+  endpoint: `${API_URL}/admin/users/roles/${id}`,
   method: 'DELETE',
   headers: {
     'content-type': 'application/json',
