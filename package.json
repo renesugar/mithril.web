@@ -1,8 +1,8 @@
 {
   "name": "mithril.web",
-  "version": "1.0.16",
+  "version": "1.0.20",
   "description": "Mithril Web",
-  "repository": "https://github.com/Nebo15/mithril.web.git",
+  "repository": "https://github.com/edenlabllc/mithril.web.git",
   "scripts": {
     "postinstall": "[ $PREBUILD ] && npm run build || exit 0",
     "predev": "npm run webpack",
