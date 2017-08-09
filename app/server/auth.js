@@ -33,7 +33,7 @@ router.get(config.OAUTH_REDIRECT_PATH, (req, resp) => {
     }
 
     resp.cookie(config.AUTH_COOKIE_NAME, data.value);
-    resp.redirect('/');
+    resp.redirect('/tokens');
   });
 });
 
