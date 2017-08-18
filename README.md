@@ -1,11 +1,11 @@
 # Mithril
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/Nebo15/mithril.web.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.org/Nebo15/mithril.web.svg?branch=master)](https://travis-ci.org/Nebo15/mithril.web)
+[![Greenkeeper badge](https://badges.greenkeeper.io/edenlabllc/mithril.web.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/edenlabllc/mithril.web.svg?branch=master)](https://travis-ci.org/edenlabllc/mithril.web)
 
-[![Build history](https://buildstats.info/travisci/chart/Nebo15/mithril.web)](https://travis-ci.org/Nebo15/mithril.web)
+[![Build history](https://buildstats.info/travisci/chart/edenlabllc/mithril.web)](https://travis-ci.org/edenlabllc/mithril.web)
 
-API: https://github.com/Nebo15/mithril.api
+API: https://github.com/edenlabllc/mithril.api
 
 
 ## Demo
@@ -17,11 +17,11 @@ Try it here: http://mithril-web.herokuapp.com/
 
 ### Heroku One-Click Deployment
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nebo15/mithril.web)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/edenlabllc/mithril.web)
 
 ### Docker
 
-Dashboard can be deployed as a single container from [nebo15/man.web](https://hub.docker.com/r/nebo15/mithril.web/) Docker Hub.
+Dashboard can be deployed as a single container from [edenlabllc/mithril.web](https://hub.docker.com/r/edenlabllc/mithril.web/) Docker Hub.
 
 ## Configurations
 
