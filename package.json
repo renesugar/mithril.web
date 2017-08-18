@@ -1,6 +1,6 @@
 {
   "name": "mithril.web",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Mithril Web",
   "repository": "https://github.com/edenlabllc/mithril.web.git",
   "scripts": {
