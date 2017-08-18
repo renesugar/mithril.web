@@ -30,8 +30,15 @@ Application supports these environment variables:
 | Environment Variable  | Default Value           | Description |
 | --------------------- | ----------------------- | ----------- |
 | `PORT`                | `8080`                  | Node.js server port. |
-| `API_ENDPOINT`        |   `https://mithril-api-dev.herokuapp.com` | Mithril API endpoint. |
+| `API_HOST`            | `http://dev.ehealth.world` | Ehealth API host. |
 | `SITEMAP_HOSTNAME`    | `http://localhost:8080` | URL will be used in sitemap generated urls |
+| `LANG_COOKIE_NAME`    | `lang`                  | Name of the cookie, where storing language variable |
+| `AUTH_COOKIE_NAME`    | `token`                  | Name of the cookie, where storing token variable |
+| `CLIENT_ID`           | `62c19cb9-1811-41a0-888d-3e5d9d963389`             | Front-End client id |
+| `CLIENT_SECRET`       | `Qi9PR2F4KzJoeThkVlJERGwyVnpMQT09`                 | Front-End client secret |
+| `SCOPES`              | `app:read app:write app:delete token:read token:write token:delete user:read user:write user:delete role:read role:write role:delete client_type:read client_type:write client_type:delete client:read client:write client:delete`                  | EHEALTH auth scopes |
+| `OAUTH_URL`           | `http://auth.dev.ehealth.world/sign-in`            | Front-End client id |
+| `OAUTH_REDIRECT_PATH` | `/auth/redirect`             | Redirect path for create token in EHEALTH |
 
 ## Docs
 
