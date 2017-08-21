@@ -72,6 +72,7 @@ export default class ApprovalUpdateForm extends React.Component {
                 component={FieldInput}
                 labelText={t('Approval ID')}
                 placeholder="some_api:write some_api:read"
+                disabled
               />
             </FormColumn>
           </FormRow>
@@ -81,7 +82,6 @@ export default class ApprovalUpdateForm extends React.Component {
                 name="scope"
                 component={FieldInput}
                 labelText={t('Enter scopes')}
-                disabled
               />
             </FormColumn>
           </FormRow>
@@ -91,7 +91,7 @@ export default class ApprovalUpdateForm extends React.Component {
             <Button type="submit" disabled={!this.isChanged}>{
               submitting ? t('Saving...') : (this.isChanged ? t('Update approval') : t('Saved'))
             }</Button>
-            <Button color="red" onClick={() => this.setState({ onDelete: true })}>{submitting ? t('Deleting...') : t('Delete Approval')
+            <Button color="red" onClick={() => this.setState({ onDelete: true })}>{submitting ? t('Deleting...') : t('Delete approval')
             }</Button>
           </ButtonsGroup>
         </FormButtons>

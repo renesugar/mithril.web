@@ -126,16 +126,16 @@ export default class ApprovalForm extends React.Component {
           {
             edit && (<ButtonsGroup>
               <Button type="submit" disabled={!this.isChanged}>{
-                submitting ? t('Saving...') : (this.isChanged ? t('Update Role') : t('Saved'))
+                submitting ? t('Saving...') : (this.isChanged ? t('Update approval') : t('Saved'))
               }</Button>
-              <Button color="red" onClick={() => this.setState({ onDelete: true })}>{submitting ? t('Deleting...') : t('Delete Role')
+              <Button color="red" onClick={() => this.setState({ onDelete: true })}>{submitting ? t('Deleting...') : t('Delete approval')
               }</Button>
             </ButtonsGroup>)
           }
           {
             !edit && (<ButtonsGroup>
               <Button type="submit" disabled={!this.isChanged}>{
-                submitting ? t('Saving...') : (this.isChanged ? t('Save New Role') : t('Saved'))
+                submitting ? t('Saving...') : (this.isChanged ? t('Save New approval') : t('Saved'))
               }</Button>
             </ButtonsGroup>)
           }
@@ -150,7 +150,7 @@ export default class ApprovalForm extends React.Component {
           id="confirm-delete"
           onCancel={() => this.setState({ onDelete: false })}
           onConfirm={() => onDelete(this.state.savedValues.id)}
-        >{ t('Are you sure want to delete this role?') }</Confirm>
+        >{ t('Are you sure want to delete this approval?') }</Confirm>
       </Form>
     );
   }

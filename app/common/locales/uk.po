@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2017-07-26 18:07+0300\n"
-"PO-Revision-Date: 2017-07-26 18:08+0300\n"
+"POT-Creation-Date: 2017-08-21 11:18+0300\n"
+"PO-Revision-Date: 2017-08-21 11:18+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: uk\n"
@@ -109,8 +109,8 @@ msgstr "Введіть доступні дії"
 msgid "Saving..."
 msgstr "Збереження…"
 
-msgid "Update Role"
-msgstr "Змінити роль"
+msgid "Update approval"
+msgstr "Оновити підвердження"
 
 msgid "Saved"
 msgstr "Збережено"
@@ -118,26 +118,17 @@ msgstr "Збережено"
 msgid "Deleting..."
 msgstr "Видалення"
 
-msgid "Delete Role"
-msgstr "Видатити роль"
-
-msgid "Save New Role"
-msgstr "Зберегти нову роль"
-
-msgid "Are you sure want to delete this role?"
-msgstr "В впевнені, що хочете видалити цю роль?"
-
-msgid "Approval ID"
-msgstr "Ідентифікатор підтвердження"
-
-msgid "Update approval"
-msgstr "Оновити підвердження"
-
-msgid "Delete Approval"
+msgid "Delete approval"
 msgstr "Видалити підтвердження"
+
+msgid "Save New approval"
+msgstr "Зберенигти нове підтвердження"
 
 msgid "Are you sure want to delete this approval?"
 msgstr "Ви впевнені, що хочете видалити підтвердження?"
+
+msgid "Approval ID"
+msgstr "Ідентифікатор підтвердження"
 
 msgid "Client name"
 msgstr "Ім’я клієнта"
@@ -201,6 +192,18 @@ msgstr "Введіть"
 
 msgid "Role name"
 msgstr "Назва ролі"
+
+msgid "Update Role"
+msgstr "Змінити роль"
+
+msgid "Delete Role"
+msgstr "Видатити роль"
+
+msgid "Save New Role"
+msgstr "Зберегти нову роль"
+
+msgid "Are you sure want to delete this role?"
+msgstr "В впевнені, що хочете видалити цю роль?"
 
 msgid "ID"
 msgstr "Ідентифікатор"
@@ -419,59 +422,3 @@ msgstr ""
 msgctxt "at"
 msgid "Expires"
 msgstr "Дійсний до"
-
-#, fuzzy
-#~| msgid "Enter email"
-#~ msgid "Enter value"
-#~ msgstr "Введіть email"
-
-#~ msgid "field name"
-#~ msgstr "назву"
-
-#~ msgid "Go to dashboard"
-#~ msgstr "Перейти на головну"
-
-#~ msgid "email"
-#~ msgstr "електронну пошту"
-
-#~ msgid "Required field"
-#~ msgstr "Обов'язкове поле"
-
-#~ msgid "Invalid email format"
-#~ msgstr "Невірний формат Email"
-
-#~ msgid "Invalid surname"
-#~ msgstr "Невірне прізвище"
-
-#~ msgid "Length must be less than <%= params %>"
-#~ msgstr "Довжина має бути менше ніж <%= params %>"
-
-#~ msgid "Invalid card number"
-#~ msgstr "Невірний номер карти"
-
-#~ msgid "Card with such names already exist"
-#~ msgstr "Карта з такою назвою вже існує"
-
-#~ msgid "Card with such number already exist"
-#~ msgstr "Карта з таким номером вже існує"
-
-#~ msgid "Support only {{types}} cards"
-#~ msgstr "Ми підтримуємо тільки картки {{types}}"
-
-#~ msgid "Minimal value is <%= params %>"
-#~ msgstr "Мінімальне значення <%= params %>"
-
-#~ msgid "Maximum value is <%= params %>"
-#~ msgstr "Максимальне значення <%= params %>"
-
-#~ msgid "Confirm"
-#~ msgstr "Підтвердити"
-
-#~ msgid "Cancel"
-#~ msgstr "Відмінити"
-
-#~ msgid "No data"
-#~ msgstr "Дані вітсутні"
-
-#~ msgid "Enter your email"
-#~ msgstr "Введіть вашу електронну пошту"
