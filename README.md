@@ -30,7 +30,7 @@ Application supports these environment variables:
 | Environment Variable  | Default Value           | Description |
 | --------------------- | ----------------------- | ----------- |
 | `PORT`                | `8080`                  | Node.js server port. |
-| `API_HOST`            | `http://dev.ehealth.world` | Ehealth API host. |
+| `API_ENDPOINT`        | `http://dev.ehealth.world` | Ehealth API host. |
 | `SITEMAP_HOSTNAME`    | `http://localhost:8080` | URL will be used in sitemap generated urls |
 | `LANG_COOKIE_NAME`    | `lang`                  | Name of the cookie, where storing language variable |
 | `AUTH_COOKIE_NAME`    | `token`                  | Name of the cookie, where storing token variable |
