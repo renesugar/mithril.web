@@ -25,7 +25,7 @@ invoke({
   headers: {
     'content-type': 'application/json',
   },
-  bailout: state => useCache && state.data.users && state.data.users.length,
+  bailout: state => useCache && state.data.users && Object.keys(state.data.users).length,
   types: ['users/FETCH_USERS_LIST_REQUEST', {
     type: 'users/FETCH_USERS_LIST_SUCCESS',
     payload: (action, state, res) => res.clone().json().then(

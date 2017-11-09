@@ -4,17 +4,18 @@ import { withRouter } from 'react-router';
 import { translate } from 'react-i18next';
 import { provideHooks } from 'redial';
 import Helmet from 'react-helmet';
-import { filterParams } from 'helpers/url';
+import { setFilter } from 'helpers/filter';
 import withStyles from 'nebo15-isomorphic-style-loader/lib/withStyles';
 
 import { H1 } from '@components/Title';
 import Table from '@components/Table';
 import Button from '@components/Button';
 import { FormRow, FormColumn } from '@components/Form';
+import ShowBy from 'containers/blocks/ShowBy';
 
 import FieldScopeFilterForm from 'containers/forms/FieldScopeFilterForm';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
-import Pagination from 'components/CursorPagination';
+import Pagination from 'components/Pagination';
 
 import { getRoles } from 'reducers';
 import { fetchRoles } from './redux';
@@ -26,7 +27,7 @@ import styles from './styles.scss';
 @translate()
 @provideHooks({
   fetch: ({ dispatch, location: { query } }) =>
-    dispatch(fetchRoles(query)),
+    dispatch(fetchRoles({ page_size: 5, ...query })),
 })
 @connect(state => ({
   ...state.pages.RolesPage,
@@ -34,7 +35,7 @@ import styles from './styles.scss';
 }))
 export default class RolesPage extends React.Component {
   render() {
-    const { roles = [], t, location, paging } = this.props;
+    const { roles = [], t, location, paging, router } = this.props;
 
     return (
       <div id="roles-page">
@@ -48,7 +49,7 @@ export default class RolesPage extends React.Component {
               form="roles_name_form"
               initialValues={location.query}
               submitBtn
-              onSubmit={name => filterParams(name, this.props)}
+              onSubmit={name => setFilter(name, { location, router })}
             />
           </FormColumn>
           <FormColumn>
@@ -60,8 +61,14 @@ export default class RolesPage extends React.Component {
                   if (acc.indexOf(cur.title)) acc.push(cur.title);
                   return acc;
                 }, []).join(',');
-                return filterParams({ scope: field }, this.props);
+                return setFilter({ scope: field }, { location, router });
               }}
+            />
+          </FormColumn>
+          <FormColumn>
+            <ShowBy
+              active={Number(location.query.page_size) || 5}
+              onChange={page_size => setFilter({ page_size, page: 1 }, { location, router })}
             />
           </FormColumn>
         </FormRow>
@@ -93,14 +100,13 @@ export default class RolesPage extends React.Component {
           <Button to="/roles/create">{t('Create new')}</Button>
         </div>
 
-        <div className={styles.pagination}>
+        {paging.total_pages > 1 && (
           <Pagination
+            currentPage={paging.page_number}
+            totalPage={paging.total_pages}
             location={location}
-            more={paging.has_more}
-            after={paging.cursors.starting_after}
-            before={paging.cursors.ending_before}
           />
-        </div>
+        )}
       </div>
     );
   }

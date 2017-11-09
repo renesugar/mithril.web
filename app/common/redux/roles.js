@@ -12,7 +12,7 @@ export const fetchRoles = ({ ...options, limit = 10 }, { useCache = false } = {}
   headers: {
     'content-type': 'application/json',
   },
-  bailout: state => useCache && state.data.roles && state.data.roles.length,
+  bailout: state => useCache && state.data.roles && Object.keys(state.data.roles).length,
   types: ['roles/FETCH_ROLES_REQUEST', {
     type: 'roles/FETCH_ROLES_SUCCESS',
     payload: (action, state, res) => res.clone().json().then(

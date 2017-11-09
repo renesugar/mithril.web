@@ -5,15 +5,15 @@ import { translate } from 'react-i18next';
 import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
 import Helmet from 'react-helmet';
+import { setFilter } from 'helpers/filter';
 
 import { H1 } from '@components/Title';
 import Table from '@components/Table';
 import Button from '@components/Button';
 import { FormRow, FormColumn } from '@components/Form';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
-import Pagination from 'components/CursorPagination';
-
-import { filterParams } from 'helpers/url';
+import Pagination from 'components/Pagination';
+import ShowBy from 'containers/blocks/ShowBy';
 
 import { getUsers } from 'reducers';
 import { fetchUsersList } from './redux';
@@ -25,7 +25,7 @@ import styles from './styles.scss';
 @translate()
 @provideHooks({
   fetch: ({ dispatch, location: { query } }) =>
-    dispatch(fetchUsersList(query)),
+    dispatch(fetchUsersList({ page_size: 5, ...query })),
 })
 @connect(state => ({
   ...state.pages.UsersPage,
@@ -46,10 +46,15 @@ export default class UsersPage extends React.Component {
               initialValues={location.query}
               form="user_email_form"
               submitBtn
-              onSubmit={values => filterParams(values, { router, location })}
+              onSubmit={values => setFilter(values, { router, location })}
             />
           </FormColumn>
-          <FormColumn />
+          <FormColumn>
+            <ShowBy
+              active={Number(location.query.page_size) || 5}
+              onChange={page_size => setFilter({ page_size, page: 1 }, { location, router })}
+            />
+          </FormColumn>
         </FormRow>
         <div id="users-table" className={styles.table}>
           <Table
@@ -77,15 +82,13 @@ export default class UsersPage extends React.Component {
           <Button to="/users/create">{t('Create new user')}</Button>
         </div>
 
-        <div className={styles.pagination}>
+        {paging.total_pages > 1 && (
           <Pagination
+            currentPage={paging.page_number}
+            totalPage={paging.total_pages}
             location={location}
-            more={paging.has_more}
-            after={paging.cursors.starting_after}
-            before={paging.cursors.ending_before}
           />
-        </div>
-
+        )}
       </div>
     );
   }

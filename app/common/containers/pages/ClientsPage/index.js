@@ -4,15 +4,16 @@ import { translate } from 'react-i18next';
 import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
 import Helmet from 'react-helmet';
-import { filterParams } from 'helpers/url';
 import withStyles from 'nebo15-isomorphic-style-loader/lib/withStyles';
+import { setFilter } from 'helpers/filter';
 
 import { H1 } from '@components/Title';
 import Table from '@components/Table';
 import { FormRow, FormColumn } from '@components/Form';
 import Button from '@components/Button';
-import Pagination from 'components/CursorPagination';
+import Pagination from 'components/Pagination';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
+import ShowBy from 'containers/blocks/ShowBy';
 
 import { getClients } from 'reducers';
 import { fetchClients } from './redux';
@@ -24,7 +25,7 @@ import styles from './styles.scss';
 @translate()
 @provideHooks({
   fetch: ({ dispatch, location: { query } }) =>
-    dispatch(fetchClients(query)),
+    dispatch(fetchClients({ page_size: 5, ...query })),
 })
 @connect(state => ({
   ...state.pages.ClientsPage,
@@ -32,7 +33,7 @@ import styles from './styles.scss';
 }))
 export default class ClientsPage extends React.Component {
   render() {
-    const { clients = [], t, location, paging } = this.props;
+    const { clients = [], t, location, paging, router } = this.props;
 
     return (
       <div id="clients-page">
@@ -45,10 +46,15 @@ export default class ClientsPage extends React.Component {
               form="clients_name_form"
               initialValues={location.query}
               submitBtn
-              onSubmit={name => filterParams(name, this.props)}
+              onSubmit={name => setFilter(name, { location, router })}
             />
           </FormColumn>
-          <FormColumn />
+          <FormColumn>
+            <ShowBy
+              active={Number(location.query.page_size) || 5}
+              onChange={page_size => setFilter({ page_size, page: 1 }, { location, router })}
+            />
+          </FormColumn>
         </FormRow>
         <div id="client-table" className={styles.table}>
           <Table
@@ -86,14 +92,13 @@ export default class ClientsPage extends React.Component {
           <Button to="/clients/create">{t('Create new client')}</Button>
         </div>
 
-        <div className={styles.pagination}>
+        {paging.total_pages > 1 && (
           <Pagination
+            currentPage={paging.page_number}
+            totalPage={paging.total_pages}
             location={location}
-            more={paging.has_more}
-            after={paging.cursors.starting_after}
-            before={paging.cursors.ending_before}
           />
-        </div>
+        )}
       </div>
     );
   }

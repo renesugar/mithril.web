@@ -6,14 +6,15 @@ import { provideHooks } from 'redial';
 import Helmet from 'react-helmet';
 import withStyles from 'nebo15-isomorphic-style-loader/lib/withStyles';
 import { format } from 'helpers/date';
-import { filterParams } from 'helpers/url';
+import { setFilter } from 'helpers/filter';
 
 import { H1 } from '@components/Title';
 import Table from '@components/Table';
 import { FormRow, FormColumn } from '@components/Form';
 import Button from '@components/Button';
-import Pagination from 'components/CursorPagination';
+import Pagination from 'components/Pagination';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
+import ShowBy from 'containers/blocks/ShowBy';
 
 import { getTokens } from 'reducers';
 import { fetchTokens } from './redux';
@@ -25,7 +26,7 @@ import styles from './styles.scss';
 @translate()
 @provideHooks({
   fetch: ({ dispatch, location: { query } }) =>
-    dispatch(fetchTokens(query)),
+    dispatch(fetchTokens({ page_size: 5, ...query })),
 })
 @connect(state => ({
   ...state.pages.TokensPage,
@@ -33,7 +34,7 @@ import styles from './styles.scss';
 }))
 export default class TokensPage extends React.Component {
   render() {
-    const { tokens = [], t, location, paging } = this.props;
+    const { tokens = [], t, router, location, paging } = this.props;
 
     return (
       <div id="tokens-page">
@@ -47,7 +48,7 @@ export default class TokensPage extends React.Component {
               placeholder={t('Enter {{name}}', { name: t('name') })}
               initialValues={location.query}
               submitBtn
-              onSubmit={({ name }) => filterParams({ name }, this.props)}
+              onSubmit={({ name }) => setFilter({ name }, { location, router })}
             />
           </FormColumn>
           <FormColumn>
@@ -57,7 +58,7 @@ export default class TokensPage extends React.Component {
               placeholder={t('Enter {{name}}', { name: t('value') })}
               initialValues={location.query}
               submitBtn
-              onSubmit={({ value }) => filterParams({ value }, this.props)}
+              onSubmit={({ value }) => setFilter({ value }, { location, router })}
             />
           </FormColumn>
         </FormRow>
@@ -68,10 +69,15 @@ export default class TokensPage extends React.Component {
               name="User ID"
               initialValues={location.query}
               submitBtn
-              onSubmit={({ user_id }) => filterParams({ user_id }, this.props)}
+              onSubmit={({ user_id }) => setFilter({ user_id }, { location, router })}
             />
           </FormColumn>
-          <FormColumn />
+          <FormColumn>
+            <ShowBy
+              active={Number(location.query.page_size) || 5}
+              onChange={page_size => setFilter({ page_size }, { location, router })}
+            />
+          </FormColumn>
         </FormRow>
         <div id="tokens-table" className={styles.table}>
           <Table
@@ -107,14 +113,13 @@ export default class TokensPage extends React.Component {
           <Button to="/tokens/create">{t('Create new token')}</Button>
         </div>
 
-        <div className={styles.pagination}>
+        {paging.total_pages > 1 && (
           <Pagination
+            currentPage={paging.page_number}
+            totalPage={paging.total_pages}
             location={location}
-            more={paging.has_more}
-            after={paging.cursors.starting_after}
-            before={paging.cursors.ending_before}
           />
-        </div>
+      )}
       </div>
     );
   }

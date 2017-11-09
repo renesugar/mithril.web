@@ -96,6 +96,7 @@ export default handleAction(
   (state, action) => ({
     ...state,
     ...action.payload.entities.approvals,
+    ...action.meta,
   }),
   {}
 );

@@ -7,22 +7,25 @@ import { client } from 'schemas';
 
 import { invoke } from './api';
 
-export const fetchClients = ({ limit = 10, ...options } = {}, { useCache = false } = {}) => invoke({
-  endpoint: createUrl(`${API_URL}/admin/clients`, { ...options, limit }),
-  method: 'GET',
-  headers: {
-    'content-type': 'application/json',
-  },
-  bailout: state => useCache && state.data.clients && state.data.clients.length,
-  types: ['clients/FETCH_CLIENTS_REQUEST', {
-    type: 'clients/FETCH_CLIENTS_SUCCESS',
-    payload: (action, state, res) => res.clone().json().then(
-      json => normalize(json.data, [client])
-    ),
-    meta: (action, state, res) =>
-      res.clone().json().then(json => json.paging),
-  }, 'clients/FETCH_CLIENTS_FAILURE'],
-});
+export const fetchClients = ({ limit = 10, ...options } = {}, { useCache = false } = {}) =>
+  invoke({
+    endpoint: createUrl(`${API_URL}/admin/clients`, { ...options, limit }),
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+    },
+    bailout: state => useCache &&
+      state.data.clients &&
+      Object.keys(state.data.clients).length,
+    types: ['clients/FETCH_CLIENTS_REQUEST', {
+      type: 'clients/FETCH_CLIENTS_SUCCESS',
+      payload: (action, state, res) => res.clone().json().then(
+        json => normalize(json.data, [client])
+      ),
+      meta: (action, state, res) =>
+        res.clone().json().then(json => json.paging),
+    }, 'clients/FETCH_CLIENTS_FAILURE'],
+  });
 
 export const fetchClientByID = id => invoke({
   endpoint: `${API_URL}/admin/clients/${id}`,

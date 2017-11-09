@@ -13,7 +13,9 @@ export const fetchClientsTypes = ({ limit = 10, ...options }, { useCache = false
   headers: {
     'content-type': 'application/json',
   },
-  bailout: state => useCache && state.data.clientTypes && state.data.clientTypes.length,
+  bailout: state => useCache &&
+    state.data.clientTypes &&
+    Object.keys(state.data.clientTypes).length,
   types: ['clientTypes/FETCH_CLIENT_TYPES_REQUEST', {
     type: 'clientTypes/FETCH_CLIENT_TYPES_SUCCESS',
     payload: (action, state, res) => res.clone().json().then(
