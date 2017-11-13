@@ -11,7 +11,6 @@ import FieldInput from '@components/reduxForm/FieldInput';
 import Button, { ButtonsGroup } from '@components/Button';
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
 import { Select } from '@components/Select';
-import FieldCheckbox from '@components/reduxForm/FieldCheckbox';
 
 import styles from './styles.scss';
 
@@ -39,9 +38,6 @@ const getValues = getFormValues('client-form');
   initialValues: {
     settings: {},
     priv_settings: {},
-  },
-  is_blocked: {
-    required: true,
   },
 })
 @connect(state => ({
@@ -153,25 +149,6 @@ export default class ClientForm extends React.Component {
                 readOnly
                 disabled
                 labelText={t('Client secret')}
-              />
-            </FormColumn>
-          </FormRow>
-          <FormRow>
-            <FormColumn align="baseline">
-              <Field
-                name="is_blocked"
-                component={FieldCheckbox}
-                labelText="Заблокований / Не заблокований"
-              />
-            </FormColumn>
-            <FormColumn />
-          </FormRow>
-          <FormRow>
-            <FormColumn align="baseline">
-              <Field
-                name="block_reason"
-                component={FieldInput}
-                labelText="Причина блокування"
               />
             </FormColumn>
           </FormRow>

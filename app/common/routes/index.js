@@ -27,6 +27,7 @@ import UserRoleCreatePage from 'containers/pages/UserRoleCreatePage';
 import ClientsPage from 'containers/pages/ClientsPage';
 import ClientCreatePage from 'containers/pages/ClientCreatePage';
 import ClientUpdatePage from 'containers/pages/ClientUpdatePage';
+import ClientBlockPage from 'containers/pages/ClientBlockPage';
 
 import ApprovalsPage from 'containers/pages/ApprovalsPage';
 import ApprovalCreatePage from 'containers/pages/ApprovalCreatePage';
@@ -100,6 +101,7 @@ export const configureRoutes = ({ store }) => { // eslint-disable-line
             <IndexRoute component={ClientsPage} />
             <Route path="create" component={ClientCreatePage} />
             <Route path=":id" component={ClientUpdatePage} />
+            <Route path=":id/block" component={ClientBlockPage} />
           </Route>
 
           <Route path="approvals">

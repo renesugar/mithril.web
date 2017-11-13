@@ -83,6 +83,7 @@ export default class ClientsPage extends React.Component {
               { key: 'redirect_uri', title: t('Redirect uri') },
               { key: 'is_blocked', title: t('Статус') },
               { key: 'actions', title: t('Details') },
+              { key: 'deactivate', title: 'Дії' },
             ]}
             data={clients.map(item => ({
               id: item.id,
@@ -113,6 +114,15 @@ export default class ClientsPage extends React.Component {
                 to={`/clients/${item.id}`}
               >
                 { t('Show client details') }
+              </Button>),
+              deactivate: (<Button
+                id={`client-details-button-${item.id}`}
+                theme="link"
+                size="small"
+                color="red"
+                to={`/clients/${item.id}/block`}
+              >
+                Заблокувати / Розблокувати
               </Button>),
             }))}
           />
