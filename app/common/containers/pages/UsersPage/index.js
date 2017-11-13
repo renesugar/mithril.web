@@ -50,6 +50,18 @@ export default class UsersPage extends React.Component {
             />
           </FormColumn>
           <FormColumn>
+            <FieldFilterForm
+              name="id"
+              initialValues={location.query}
+              form="user_id_form"
+              submitBtn
+              onSubmit={values => setFilter(values, { router, location })}
+            />
+          </FormColumn>
+        </FormRow>
+        <FormRow>
+          <FormColumn />
+          <FormColumn>
             <ShowBy
               active={Number(location.query.page_size) || 5}
               onChange={page_size => setFilter({ page_size, page: 1 }, { location, router })}

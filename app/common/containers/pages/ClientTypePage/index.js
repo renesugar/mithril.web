@@ -76,7 +76,7 @@ export default class ClientTypePage extends React.Component {
             columns={[
               { key: 'id', title: t('Id') },
               { key: 'name', title: t('Name') },
-              { key: 'scope', title: t('Scope') },
+              { key: 'scope', title: t('Scope'), width: 400 },
               { key: 'edit', title: t('Action') },
             ]}
             data={clientTypes.map(item => ({

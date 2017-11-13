@@ -13,7 +13,9 @@ import { FormRow, FormColumn } from '@components/Form';
 import Button from '@components/Button';
 import Pagination from 'components/Pagination';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
+import IsBlockedFilterForm from 'containers/forms/IsBlockedFilterForm';
 import ShowBy from 'containers/blocks/ShowBy';
+import ColoredText from 'components/ColoredText';
 
 import { getClients } from 'reducers';
 import { fetchClients } from './redux';
@@ -50,6 +52,23 @@ export default class ClientsPage extends React.Component {
             />
           </FormColumn>
           <FormColumn>
+            <FieldFilterForm
+              name="user_id"
+              form="clients_user_id_form"
+              initialValues={location.query}
+              submitBtn
+              onSubmit={user_id => setFilter(user_id, { location, router })}
+            />
+          </FormColumn>
+        </FormRow>
+        <FormRow>
+          <FormColumn>
+            <IsBlockedFilterForm
+              onChange={is_blocked =>
+                setFilter({ is_blocked }, { location, router })}
+            />
+          </FormColumn>
+          <FormColumn>
             <ShowBy
               active={Number(location.query.page_size) || 5}
               onChange={page_size => setFilter({ page_size, page: 1 }, { location, router })}
@@ -62,6 +81,7 @@ export default class ClientsPage extends React.Component {
               { key: 'id', title: t('Id') },
               { key: 'name', title: t('Name') },
               { key: 'redirect_uri', title: t('Redirect uri') },
+              { key: 'is_blocked', title: t('Статус') },
               { key: 'actions', title: t('Details') },
             ]}
             data={clients.map(item => ({
@@ -69,15 +89,24 @@ export default class ClientsPage extends React.Component {
               name: <div className={styles.name}>
                 {item.name}
               </div>,
-              redirect_uri: (<Button
-                id={`client-details-button-${item.id}`}
-                theme="link"
-                to={`https://${item.redirect_uri}`}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                { item.redirect_uri }
-              </Button>),
+              is_blocked: <div>
+                {!item.is_blocked ? (
+                  <ColoredText color="green">не заблокований</ColoredText>
+                ) : (
+                  <ColoredText color="red">заблокований</ColoredText>
+                )}
+              </div>,
+              redirect_uri: (<div className={styles.word_break}>
+                <Button
+                  id={`client-details-button-${item.id}`}
+                  theme="link"
+                  to={`https://${item.redirect_uri}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  { item.redirect_uri }
+                </Button>
+              </div>),
               actions: (<Button
                 id={`client-details-button-${item.id}`}
                 theme="link"
