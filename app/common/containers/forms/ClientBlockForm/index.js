@@ -32,7 +32,6 @@ export default class ClientBLockForm extends React.Component {
   render() {
     const {
       onBlockClient,
-      submitting,
       values = {},
     } = this.props;
     return (
@@ -53,7 +52,7 @@ export default class ClientBLockForm extends React.Component {
               <Field
                 name="block_reason"
                 component={FieldInput}
-                labelText="Причина блокування"
+                labelText="Коментар"
               />
             </FormColumn>
           </FormRow>
@@ -65,7 +64,7 @@ export default class ClientBLockForm extends React.Component {
               color="red"
               onClick={() => this.setState({ onDelete: true })}
             >
-              {submitting ? 'Заблокування...' : 'Заблокувати'}
+              { values.is_blocked ? 'Розблокувати' : 'Заблокувати'}
             </Button>
           </ButtonsGroup>
         </FormButtons>
