@@ -64,7 +64,7 @@ export default class ClientBLockForm extends React.Component {
               color="red"
               onClick={() => this.setState({ onDelete: true })}
             >
-              { values.is_blocked ? 'Розблокувати' : 'Заблокувати'}
+              {values.is_blocked ? 'Заблокувати' : 'Розблокувати'}
             </Button>
           </ButtonsGroup>
         </FormButtons>
@@ -77,7 +77,9 @@ export default class ClientBLockForm extends React.Component {
           id="confirm-delete"
           onCancel={() => this.setState({ onDelete: false })}
           onConfirm={() => onBlockClient(values)}
-        >Ви впевнені, що хочете заблокувати кліента</Confirm>
+        >
+          {`Ви впевнені, що хочете ${values.is_blocked ? 'заблокувати' : 'розблокувати'} кліента`}
+        </Confirm>
       </Form>
     );
   }
