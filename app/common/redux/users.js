@@ -101,6 +101,7 @@ export const updateUser = (body, id) => invoke({
     },
   },
 });
+
 export const deleteUser = id => invoke({
   endpoint: `${API_URL}/admin/users/${id}`,
   method: 'DELETE',
@@ -110,6 +111,34 @@ export const deleteUser = id => invoke({
   types: ['users/DELETE_USER_REQUEST',
     'users/DELETE_USER_SUCCESS',
     'users/DELETE_USER_FAILURE'],
+});
+
+export const blockUser = (id, reason) => invoke({
+  endpoint: `${API_URL}/admin/users/${id}/actions/block`,
+  method: 'PATCH',
+  headers: {
+    'content-type': 'application/json',
+  },
+  types: ['users/BLOCK_USER_REQUEST',
+    'users/BLOCK_USER_SUCCESS',
+    'users/BLOCK_USER_FAILURE'],
+  body: {
+    user: reason,
+  },
+});
+
+export const unblockUser = (id, reason = '') => invoke({
+  endpoint: `${API_URL}/admin/users/${id}/actions/unblock`,
+  method: 'PATCH',
+  headers: {
+    'content-type': 'application/json',
+  },
+  types: ['users/UNBLOCK_USER_REQUEST',
+    'users/UNBLOCK_USER_SUCCESS',
+    'users/UNBLOCK_USER_FAILURE'],
+  body: {
+    user: reason,
+  },
 });
 
 export default handleActions({

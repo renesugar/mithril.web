@@ -62,6 +62,7 @@ export default class UserForm extends React.Component {
   render() {
     const { handleSubmit, submitting, onDelete, create, update, t, submitFailed } = this.props;
     const is_changed = this.isChanged;
+
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)}>
         <FormBlock>

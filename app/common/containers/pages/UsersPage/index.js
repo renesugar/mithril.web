@@ -10,6 +10,7 @@ import { setFilter } from 'helpers/filter';
 import { H1 } from '@components/Title';
 import Table from '@components/Table';
 import Button from '@components/Button';
+import ColoredText from 'components/ColoredText';
 import { FormRow, FormColumn } from '@components/Form';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
 import Pagination from 'components/Pagination';
@@ -73,12 +74,18 @@ export default class UsersPage extends React.Component {
             columns={[
               { key: 'id', title: t('Id') },
               { key: 'email', title: t('Email') },
+              { key: 'is_blocked', title: 'Статус' },
               { key: 'actions', title: t('Details') },
             ]}
             data={users.map(item => ({
               id: item.id,
               email: <div className={styles.name}>
                 {item.email}
+              </div>,
+              is_blocked: <div>
+                {item.is_blocked ?
+                  <ColoredText color="red">Заблокований</ColoredText> :
+                  <ColoredText color="green">Активний</ColoredText> }
               </div>,
               actions: (<Button
                 id={`user-details-button-${item.id}`}
