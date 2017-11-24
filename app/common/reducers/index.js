@@ -9,11 +9,13 @@ import loading from 'redux/loading';
 import roles from 'redux/roles';
 import clientTypes from 'redux/client-types';
 import tokens from 'redux/tokens';
-import users from 'redux/users';
-import userRoles from 'redux/user-roles';
 import clients from 'redux/clients';
 import approvals from 'redux/approvals';
 import session from 'redux/session';
+
+import users from 'redux/users';
+import userRoles from 'redux/user-roles';
+import userFactors from 'redux/user-factors';
 
 import Aside from 'containers/blocks/Aside/redux';
 
@@ -41,8 +43,11 @@ const data = combineReducers({
   roles,
   clientTypes,
   tokens,
+
   users,
   userRoles,
+  userFactors,
+
   clients,
   approvals,
 });

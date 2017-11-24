@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, getFormValues, reset } from 'redux-form';
-import FieldInput from '@components/reduxForm/FieldInput';
+import { push } from 'react-router-redux';
 
-import { Confirm } from '@components/Popup';
 import Form, { FormRow, FormBlock, FormColumn } from '@components/Form';
+import FieldInput from '@components/reduxForm/FieldInput';
+import { Confirm } from '@components/Popup';
 import { H1 } from '@components/Title';
 import Button from '@components/Button';
-import { push } from 'react-router-redux';
 
 const getValues = getFormValues('user-block-form');
 

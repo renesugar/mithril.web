@@ -171,4 +171,11 @@ export default handleActions({
       roles: state[action.meta.userId].roles.filter(i => i !== action.meta.userRoleId),
     },
   }),
+  'userFactors/FETCH_USER_FACTORS_SUCCESS': (state, action) => ({
+    ...state,
+    [action.meta.userId]: {
+      ...state[action.meta.userId],
+      factors: action.payload.result,
+    },
+  }),
 }, {});

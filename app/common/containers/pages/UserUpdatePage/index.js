@@ -8,15 +8,16 @@ import FormPageWrapper from 'containers/blocks/FormPageWrapper';
 import UserForm from 'containers/forms/UserForm';
 import UserBlockForm from 'containers/forms/UserBlockForm';
 import UserRoles from 'containers/blocks/UserRoles';
+import UserFactors from 'containers/blocks/UserFactors';
+import ColoredText from 'components/ColoredText';
 
 import { H1 } from '@components/Title';
 import Line from '@components/Line';
-import ColoredText from 'components/ColoredText';
 
 import { getUserByID, updateUser, blockUser, unblockUser } from 'redux/users';
 import { fetchUserRoles, deleteUserRole } from 'redux/user-roles';
+import { fetchUserFactors, deleteUserFactor, enableUserFactor, disableUserFactor, createUserFactor } from 'redux/user-factors';
 import { getUser } from 'reducers';
-import { onDeleteUser } from './redux';
 
 import styles from './styles.scss';
 
@@ -25,23 +26,39 @@ import styles from './styles.scss';
   fetch: ({ dispatch, params: { id } }) => Promise.all([
     dispatch(getUserByID(id)),
     dispatch(fetchUserRoles(id)),
+    dispatch(fetchUserFactors(id)),
   ]),
 })
 @connect((state, { params: { id } }) => ({
   user: getUser(state, id),
-}), ({ onDeleteUser, updateUser, deleteUserRole, blockUser, unblockUser }))
+}), ({
+  updateUser,
+  deleteUserRole,
+  blockUser,
+  unblockUser,
+  deleteUserFactor,
+  enableUserFactor,
+  disableUserFactor,
+  createUserFactor,
+}))
 export default class UserUpdatePage extends React.Component {
   render() {
     const {
-      onDeleteUser,
-      deleteUserRole,
+      onDeleteUser = () => {},
+      updateUser = () => {},
+
+      blockUser = () => {},
+      unblockUser = () => {},
+
+      deleteUserRole = () => {},
+      deleteUserFactor = () => {},
+      enableUserFactor = () => {},
+      disableUserFactor = () => {},
+      createUserFactor = () => {},
+
       user,
-      updateUser,
-      blockUser,
-      unblockUser,
       params,
     } = this.props;
-
     return (
       <FormPageWrapper id="user-update-page" title="Деталі користувача" back="/users">
         <Helmet title="Деталі користувача" />
@@ -52,6 +69,7 @@ export default class UserUpdatePage extends React.Component {
           onSubmit={values => updateUser(values, user.id)}
         />
         <Line />
+
         <div className={styles.block}>
           <H1>Статус користувача:
             {user.is_blocked ?
@@ -65,11 +83,24 @@ export default class UserUpdatePage extends React.Component {
           />
         </div>
         <Line />
-        <div className={styles.table}>
+
+        <div className={styles.block}>
           <UserRoles
             roles={user.roles}
             id={params.id}
             onDeleteUserRole={deleteUserRole}
+          />
+        </div>
+        <Line />
+
+        <div className={styles.block}>
+          <UserFactors
+            factors={user.factors || []}
+            id={params.id}
+            onDeleteUserFactor={deleteUserFactor}
+            onEnableUserFactor={enableUserFactor}
+            onDisableUserFactor={disableUserFactor}
+            onCreateUserFactor={createUserFactor}
           />
         </div>
       </FormPageWrapper>
