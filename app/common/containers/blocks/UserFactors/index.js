@@ -67,7 +67,7 @@ export default class UserFactors extends React.Component {
             is_active: is_active ?
               <ColoredText color="green">Активний</ColoredText> :
               <ColoredText color="red">Неактивний</ColoredText>,
-            updated_at: format(updated_at),
+            updated_at: format(updated_at, 'DD.MM.YYYY HH:MM'),
             actions: <ButtonsGroup>
               {
                 factor && <Button
@@ -174,7 +174,7 @@ export default class UserFactors extends React.Component {
           return onCreateUserFactor(id)
             .then(() => push(`/users/${id}`));
         }}
-      >Ви впевнені, що хочете створити фактор з типом <b>СМС</b></Confirm>
+      >Ви впевнені, що хочете створити фактор з типом <b>SMS</b></Confirm>
     );
   }
 
