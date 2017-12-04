@@ -8,6 +8,7 @@ import { reduxFormValidate } from 'react-nebo15-validate';
 import { Confirm } from '@components/Popup';
 import Form, { FormRow, FormBlock, FormButtons, FormColumn } from '@components/Form';
 import FieldInput from '@components/reduxForm/FieldInput';
+import FieldSelect from 'components/reduxForm/FieldSelect';
 import Button, { ButtonsGroup } from '@components/Button';
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
 
@@ -28,6 +29,9 @@ const getValues = getFormValues('user-form');
       required: true,
     },
   }),
+  initialValues: {
+    fa_factor: 'null',
+  },
 })
 @connect(state => ({
   values: getValues(state),
@@ -42,6 +46,7 @@ export default class UserForm extends React.Component {
       onDelete: false,
     };
   }
+
   onSubmit(values, ...args) {
     return this.props.onSubmit(values, ...args).then((action) => {
       if (action.error) return action;
@@ -62,7 +67,6 @@ export default class UserForm extends React.Component {
   render() {
     const { handleSubmit, submitting, onDelete, create, update, t, submitFailed } = this.props;
     const is_changed = this.isChanged;
-
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)}>
         <FormBlock>
@@ -85,12 +89,33 @@ export default class UserForm extends React.Component {
               />
             </FormColumn>
           </FormRow>
+          {
+            create && (
+              <FormRow>
+                <FormColumn>
+                  <Field
+                    name="fa_factor"
+                    component={FieldSelect}
+                    labelText="Статус фактора аутентифікації"
+                    placeholder="Оберіть статус"
+                    active="null"
+                    options={[
+                      { name: 'null', title: 'За замовчуванням' },
+                      { name: 'false', title: 'Виключений' },
+                      { name: 'true', title: 'Включений' },
+                    ]}
+                  />
+                </FormColumn>
+                <FormColumn />
+              </FormRow>
+            )
+          }
         </FormBlock>
         <FormButtons>
           {
             create && (<ButtonsGroup>
-              <Button type="submit" disabled={!is_changed}>
-                { submitting ? t('Saving...') : (is_changed ? t('Create New User') : (submitFailed ? t('Failed') : t('Saved'))) }
+              <Button type="submit">
+                { submitting ? t('Saving...') : t('Create New User') }
               </Button>
             </ButtonsGroup>)
           }
