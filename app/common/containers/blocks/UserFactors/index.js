@@ -70,7 +70,7 @@ export default class UserFactors extends React.Component {
             updated_at: format(updated_at, 'DD.MM.YYYY HH:MM'),
             actions: <ButtonsGroup>
               {
-                factor && <Button
+                is_active && <Button
                   id={`user-factor-delete-button-${id}`}
                   size="small"
                   color="red"
@@ -80,7 +80,7 @@ export default class UserFactors extends React.Component {
                     factorId: id,
                   })}
                 >
-                  Зкинути фактор
+                  Скинути фактор
                 </Button>
               }
               <Button
