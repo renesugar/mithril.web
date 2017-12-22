@@ -9,8 +9,8 @@ import FormPageWrapper from 'containers/blocks/FormPageWrapper';
 import RoleForm from 'containers/forms/RoleForm';
 
 import { getRole } from 'reducers';
-import { fetchRoleByID, updateRole } from 'redux/roles';
-import { deleteRole } from './redux';
+import { fetchRoleByID } from 'redux/roles';
+import { deleteRole, onUpdateRole } from './redux';
 
 import styles from './styles.scss';
 
@@ -19,12 +19,12 @@ import styles from './styles.scss';
 })
 @connect((state, { params: { id } }) => ({
   role: getRole(state, id),
-}), { updateRole, deleteRole })
+}), { onUpdateRole, deleteRole })
 @withStyles(styles)
 @translate()
 export default class RoleUpdatePage extends React.Component {
   render() {
-    const { t, role, updateRole, deleteRole } = this.props;
+    const { t, role, onUpdateRole, deleteRole } = this.props;
 
     return (
       <FormPageWrapper id="update-roles-page" title={t('Edit role: {{name}}', { name: role.name })} back="/roles">
@@ -32,7 +32,7 @@ export default class RoleUpdatePage extends React.Component {
         <div className={styles.block}>
           <RoleForm
             initialValues={role}
-            onSubmit={values => updateRole(role.id, values)}
+            onSubmit={values => onUpdateRole(role.id, values)}
             onDelete={deleteRole}
             edit
           />
