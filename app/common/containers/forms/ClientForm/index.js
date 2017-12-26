@@ -11,12 +11,15 @@ import FormError from 'components/FormError';
 import FieldInput from '@components/reduxForm/FieldInput';
 import Button, { ButtonsGroup } from '@components/Button';
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
-import { Select } from '@components/Select';
+// import { Select } from '@components/Select';
+// import { H3 } from '@components/Title';
+// import ColoredText from 'components/ColoredText';
+// import FieldSelect from 'components/reduxForm/FieldSelect';
+import { SelectUniversal } from 'components/SelectUniversal';
 
 import styles from './styles.scss';
 
 const getValues = getFormValues('client-form');
-
 
 @translate()
 @withStyles(styles)
@@ -83,6 +86,8 @@ export default class ClientForm extends React.Component {
       update,
       t,
       data,
+      onSearchUsers = () => {},
+      onSearchClientTypes = () => {},
     } = this.props;
     const is_changed = this.isChanged;
     return (
@@ -110,12 +115,21 @@ export default class ClientForm extends React.Component {
             <FormColumn>
               <Field
                 name="user_id"
-                component={Select}
+                component={SelectUniversal}
                 searchable
+                // input={{
+                //   value: initialValues.user_id.title
+                // }}
                 labelText={t('User ID')}
                 emptyText={t('Not found')}
                 placeholder={t('Select user')}
-                onChangeSearch={val => this.setState({ user_search: val })}
+                onChangeSearch={value =>
+                  value && onSearchUsers(value).then(() =>
+                      this.setState({
+                        user_search: value.toLowerCase(),
+                      })
+                    )
+                }
                 options={data.users
                   .filter(i => new RegExp(this.state.user_search).test(i.email) === true)
                   .map(i => ({
@@ -128,11 +142,17 @@ export default class ClientForm extends React.Component {
             <FormColumn>
               <Field
                 name="client_type_id"
-                component={Select}
                 searchable
                 labelText={t('Client type id')}
                 placeholder={t('Select client type')}
-                onChangeSearch={val => this.setState({ client_type_search: val })}
+                component={SelectUniversal}
+                onChangeSearch={value =>
+                  value && onSearchClientTypes(value).then(() =>
+                    this.setState({
+                      client_type_search: value.toLowerCase(),
+                    })
+                  )
+                }
                 options={data.clientTypes
                   .filter(i => new RegExp(this.state.client_type_search).test(i.name) === true)
                   .map(i => ({

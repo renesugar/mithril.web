@@ -25,6 +25,7 @@ import TokensPage from 'containers/pages/TokensPage/redux';
 import UsersPage from 'containers/pages/UsersPage/redux';
 import ClientsPage from 'containers/pages/ClientsPage/redux';
 import ApprovalsPage from 'containers/pages/ApprovalsPage/redux';
+import ClientUpdatePage from 'containers/pages/ClientUpdatePage/redux';
 
 const blocks = combineReducers({
   Aside,
@@ -37,6 +38,7 @@ const pages = combineReducers({
   UsersPage,
   ClientsPage,
   ApprovalsPage,
+  ClientUpdatePage,
 });
 
 const data = combineReducers({
