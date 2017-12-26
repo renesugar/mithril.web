@@ -9,6 +9,8 @@ import { Confirm } from '@components/Popup';
 import Form, { FormRow, FormBlock, FormButtons, FormColumn } from '@components/Form';
 import FieldInput from '@components/reduxForm/FieldInput';
 import Button, { ButtonsGroup } from '@components/Button';
+import FormError from 'components/FormError';
+
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
 
 import styles from './styles.scss';
@@ -58,7 +60,7 @@ export default class RoleForm extends React.Component {
     return JSON.stringify(values) !== JSON.stringify(this.state.savedValues);
   }
   render() {
-    const { handleSubmit, submitting, onDelete, edit, t } = this.props;
+    const { handleSubmit, error, submitting, onDelete, edit, t } = this.props;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)}>
         <FormBlock>
@@ -83,6 +85,7 @@ export default class RoleForm extends React.Component {
             </FormColumn>
           </FormRow>
         </FormBlock>
+        <FormError message={error} />
         <FormButtons>
           {
             edit && (<ButtonsGroup>

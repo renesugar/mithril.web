@@ -7,6 +7,7 @@ import { reduxFormValidate } from 'react-nebo15-validate';
 
 import { Confirm } from '@components/Popup';
 import Form, { FormRow, FormBlock, FormButtons, FormColumn } from '@components/Form';
+import FormError from 'components/FormError';
 import FieldInput from '@components/reduxForm/FieldInput';
 import Button, { ButtonsGroup } from '@components/Button';
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
@@ -75,6 +76,7 @@ export default class ClientForm extends React.Component {
   render() {
     const {
       handleSubmit,
+      error,
       submitting,
       onDelete,
       create,
@@ -153,6 +155,7 @@ export default class ClientForm extends React.Component {
             </FormColumn>
           </FormRow>
         </FormBlock>
+        <FormError message={error} />
         <FormButtons>
           {
             create && (<ButtonsGroup>

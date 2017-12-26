@@ -10,6 +10,7 @@ import Form, { FormRow, FormBlock, FormButtons, FormColumn } from '@components/F
 import FieldInput from '@components/reduxForm/FieldInput';
 import FieldSelect from 'components/reduxForm/FieldSelect';
 import Button, { ButtonsGroup } from '@components/Button';
+import FormError from 'components/FormError';
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
 
 import styles from './styles.scss';
@@ -65,7 +66,15 @@ export default class UserForm extends React.Component {
     return JSON.stringify(values) !== JSON.stringify(this.state.savedValues);
   }
   render() {
-    const { handleSubmit, submitting, onDelete, create, update, t, submitFailed } = this.props;
+    const {
+      handleSubmit,
+      error,
+      submitting,
+      onDelete,
+      create,
+      update,
+      t,
+      submitFailed } = this.props;
     const is_changed = this.isChanged;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)}>
@@ -111,6 +120,7 @@ export default class UserForm extends React.Component {
             )
           }
         </FormBlock>
+        <FormError message={error} />
         <FormButtons>
           {
             create && (<ButtonsGroup>

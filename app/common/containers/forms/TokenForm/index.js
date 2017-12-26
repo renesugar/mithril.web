@@ -10,6 +10,7 @@ import Form, { FormRow, FormBlock, FormButtons, FormColumn } from '@components/F
 import FieldInput from '@components/reduxForm/FieldInput';
 import FieldDate from '@components/reduxForm/FieldDatepicker';
 import Button, { ButtonsGroup } from '@components/Button';
+import FormError from 'components/FormError';
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
 
 import styles from './styles.scss';
@@ -83,7 +84,16 @@ export default class TokenForm extends React.Component {
     return JSON.stringify(values) !== JSON.stringify(this.state.savedValues);
   }
   render() {
-    const { handleSubmit, submitting, submitFailed, onDelete, create, t, disabled } = this.props;
+    const {
+      handleSubmit,
+      error,
+      submitting,
+      submitFailed,
+      onDelete,
+      create,
+      t,
+      disabled,
+    } = this.props;
     const is_changed = this.isChanged;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)}>
@@ -183,6 +193,7 @@ export default class TokenForm extends React.Component {
             <FormColumn />
           </FormRow>
         </FormBlock>
+        <FormError message={error} />
         <FormButtons>
           {
             !create && (<Button

@@ -150,7 +150,7 @@ export default class UserFactors extends React.Component {
           return onDeleteUserFactor(id, this.state.factorId)
             .then(() => push(`/users/${id}`));
         }}
-      >Ви впевнені, що хочете зкинути фактор</Confirm>
+      >Ви впевнені, що хочете cкинути фактор</Confirm>
     );
   }
 
