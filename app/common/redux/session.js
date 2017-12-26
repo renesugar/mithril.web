@@ -1,47 +1,28 @@
 import { createAction, handleActions } from 'redux-actions';
+import { getUserIdFromCookies, removeUserIdFromCookies } from 'redux/users';
 
 import { AUTH_COOKIE_NAME, PUBLIC_INDEX_ROUTE } from 'config';
 
-export const getToken = () => (dispatch, getState, { cookies }) =>
-  cookies.get(AUTH_COOKIE_NAME, { path: '/' });
+export const getToken = () => (dispatch, getState, { cookies }) => cookies.get(AUTH_COOKIE_NAME, { path: '/' });
 
-export const setToken = token => (dispatch, getState, { cookies }) => {
-  const cookieOption = { path: '/' };
-
-  if (process.env.NODE_ENV !== 'development') {
-    cookieOption.secure = true;
-  }
-  return cookies.set(AUTH_COOKIE_NAME, token, cookieOption);
-};
-
-export const removeToken = () => (dispatch, getState, { cookies }) =>
-  cookies.remove(AUTH_COOKIE_NAME, { path: '/' });
-
-export const isLoginned = () => dispatch => dispatch(getToken()).then(resp => !!resp);
+export const isLoginned = () => dispatch =>
+  dispatch(getUserIdFromCookies()).then(resp => !!resp);
 
 export const logoutAction = createAction('session/LOGOUT');
 export const setData = createAction('session/SET_DATA');
 
-export const loadTokenFromStorage = () => (dispatch, getState, { cookies }) =>
-  dispatch(setData({
-    token: cookies.get(AUTH_COOKIE_NAME, { path: '/' }),
-  }));
-
 export const logout = () => dispatch =>
-  dispatch(removeToken()).then(() => dispatch(logoutAction()));
-
-export const login = token => dispatch =>
-  dispatch([
-    setToken(token),
-    setData({ token }),
-  ]);
+  dispatch(removeUserIdFromCookies()).then(() => dispatch(logoutAction()));
 
 export const logoutAndRedirect = (redirectTo = PUBLIC_INDEX_ROUTE) => dispatch =>
   dispatch(logout()).then(() => {
     window.location.pathname = redirectTo;
   });
 
-export default handleActions({
-  [setData]: (state, action) => action.payload,
-  [logoutAction]: () => ({}),
-}, {});
+export default handleActions(
+  {
+    [setData]: (state, action) => action.payload,
+    [logoutAction]: () => ({}),
+  },
+  {}
+);

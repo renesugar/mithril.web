@@ -32,7 +32,14 @@ router.get(config.OAUTH_REDIRECT_PATH, (req, resp) => {
       return;
     }
 
-    resp.cookie(config.AUTH_COOKIE_NAME, data.value);
+    const cookieOption = { secure: false, httpOnly: true };
+    if (req.secure) {
+      cookieOption.secure = true;
+    }
+
+    resp.cookie(config.AUTH_COOKIE_NAME, data.value, cookieOption);
+    resp.cookie('userId', data.user_id);
+
     resp.redirect('/tokens');
   });
 });
