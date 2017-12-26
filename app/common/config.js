@@ -10,11 +10,11 @@ if (__CLIENT__ && window && window.__CONFIG__) {
 export const PORT = config.PORT || process.env.PORT || 8080;
 export const HOSTNAME = typeof window !== 'undefined' ? window.location.origin : (config.HOSTNAME || 'http://localhost:8080');
 
-export const API_ENDPOINT = config.API_ENDPOINT || process.env.API_ENDPOINT || 'http://dev.ehealth.world';
+export const API_ENDPOINT = config.API_ENDPOINT || process.env.API_ENDPOINT || 'https://dev.ehealth.world';
 
 export const SITEMAP_HOSTNAME = process.env.SITEMAP_HOSTNAME || 'https://mithril-api-dev.herokuapp.com'; // used in sitemap
 export const LANG_COOKIE_NAME = 'lang';
-export const AUTH_COOKIE_NAME = config.AUTH_COOKIE_NAME || process.env.AUTH_COOKIE_NAME || 'token';
+export const AUTH_COOKIE_NAME = config.AUTH_COOKIE_NAME || process.env.AUTH_COOKIE_NAME || 'authorization';
 
 export const CLIENT_ID = config.CLIENT_ID || process.env.CLIENT_ID || '62c19cb9-1811-41a0-888d-3e5d9d963389';
 export const SCOPES = config.SCOPES || process.env.SCOPES || '';
