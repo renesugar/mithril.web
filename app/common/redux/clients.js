@@ -93,7 +93,7 @@ export const deleteClient = id => invoke({
     'clients/DELETE_CLIENT_SUCCESS',
     'clients/DELETE_CLIENT_FAILURE'],
 });
-export const blockClient = (id, body) => invoke({
+export const blockClient = (id, block_reason) => invoke({
   endpoint: `${API_URL}/admin/clients/${id}`,
   method: 'PUT',
   headers: {
@@ -104,10 +104,29 @@ export const blockClient = (id, body) => invoke({
     'clients/BLOCK_CLIENT_FAILURE'],
   body: {
     client: {
-      ...body,
+      block_reason,
+      is_blocked: true,
     },
   },
 });
+
+export const unblockClient = (id, block_reason = '') => invoke({
+  endpoint: `${API_URL}/admin/clients/${id}`,
+  method: 'PUT',
+  headers: {
+    'content-type': 'application/json',
+  },
+  types: ['clients/UNBLOCK_CLIENT_REQUEST',
+    'clients/UNBLOCK_CLIENT_SUCCESS',
+    'clients/UNBLOCK_CLIENT_FAILURE'],
+  body: {
+    client: {
+      block_reason,
+      is_blocked: false,
+    },
+  },
+});
+
 
 export default handleAction(
   combineActions(
