@@ -2,7 +2,6 @@
 import Express from 'express';
 import path from 'path';
 import fs from 'fs';
-import url from 'url';
 import cookieParser from 'cookie-parser';
 import proxy from 'proxy-middleware';
 import i18nextMiddleware from 'i18next-express-middleware';
@@ -11,7 +10,7 @@ import page from './page'; // eslint-disable-line import/no-unresolved
 import seo from './seo';
 import sitemap from './sitemap';
 import auth from './auth';
-import { stripProtocol } from '../common/helpers/url';
+
 
 import i18next from '../common/services/i18next';
 import * as config from '../common/config';
@@ -43,9 +42,7 @@ server.locals.CONFIG = escape(JSON.stringify(config));
 server.use(cookieParser());
 server.use(i18nextMiddleware.handle(i18next));
 
-const cookieOptions = url.parse(config.API_ENDPOINT);
-cookieOptions.cookieRewrite = `.${stripProtocol(config.API_ENDPOINT)}`;
-server.use(config.API_PROXY_PATH, proxy(cookieOptions));
+server.use(config.API_PROXY_PATH, proxy(config.API_ENDPOINT));
 
 server.use(Express.static(path.join(__dirname, '../../public')));
 server.use('/static', Express.static(path.join(__dirname, '../../static')));
