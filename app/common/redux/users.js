@@ -19,30 +19,22 @@ export const fetchUserData = token => dispatch =>
   });
 
 export const fetchUsersList = ({ limit = 10, ...options } = {}, { useCache = false } = {}) =>
-invoke({
-  endpoint: createUrl(`${API_URL}/admin/users/`, { ...options, limit }),
-  method: 'GET',
-  headers: {
-    'content-type': 'application/json',
-  },
-  bailout: state => useCache && state.data.users && Object.keys(state.data.users).length,
-  types: ['users/FETCH_USERS_LIST_REQUEST', {
-    type: 'users/FETCH_USERS_LIST_SUCCESS',
-    payload: (action, state, res) => res.clone().json().then(
-      json => normalize(json.data, [user])
-    ),
-    meta: (action, state, res) =>
-      res.clone().json().then(json => json.paging),
-  }, 'users/FETCH_USER_LIST_FAILURE'],
-});
-
-export const getUserIdFromCookies = () => (dispatch, getState, { cookies }) =>
-  cookies.get('userId', { path: '/' });
-export const removeUserIdFromCookies = () => (
-  dispatch,
-  getState,
-  { cookies }
-) => cookies.remove('userId', { path: '/' });
+  invoke({
+    endpoint: createUrl(`${API_URL}/admin/users/`, { ...options, limit }),
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+    },
+    bailout: state => useCache && state.data.users && Object.keys(state.data.users).length,
+    types: ['users/FETCH_USERS_LIST_REQUEST', {
+      type: 'users/FETCH_USERS_LIST_SUCCESS',
+      payload: (action, state, res) => res.clone().json().then(
+        json => normalize(json.data, [user])
+      ),
+      meta: (action, state, res) =>
+        res.clone().json().then(json => json.paging),
+    }, 'users/FETCH_USER_LIST_FAILURE'],
+  });
 
 export const getUserByToken = token => invoke({
   endpoint: `${API_URL}/admin/tokens/${token}/user`,

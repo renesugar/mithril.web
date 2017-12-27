@@ -17,5 +17,3 @@ export const createUrl = (endpoint, options) => {
   );
   return Url.format(url);
 };
-
-export const stripProtocol = url => url && url.replace(/(^\w+:|^)\/\//, '');
