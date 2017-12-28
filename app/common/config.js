@@ -18,7 +18,7 @@ export const AUTH_COOKIE_NAME = config.AUTH_COOKIE_NAME || process.env.AUTH_COOK
 
 export const CLIENT_ID = config.CLIENT_ID || process.env.CLIENT_ID || '62c19cb9-1811-41a0-888d-3e5d9d963389';
 export const SCOPES = config.SCOPES || process.env.SCOPES || '';
-export const OAUTH_URL = config.OAUTH_URL || process.env.OAUTH_URL || 'http://auth.dev.ehealth.world/sign-in';
+export const OAUTH_URL = config.OAUTH_URL || process.env.OAUTH_URL || 'http://auth-dev.ehealth.world/sign-in';
 export const OAUTH_REDIRECT_PATH = config.OAUTH_REDIRECT_PATH || process.env.OAUTH_REDIRECT_PATH || '/auth/redirect';
 export const OAUTH_REDIRECT_URL = config.OAUTH_REDIRECT_URL || process.env.OAUTH_REDIRECT_URL || `${HOSTNAME}${OAUTH_REDIRECT_PATH}`;
 

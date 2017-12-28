@@ -1,4 +1,3 @@
-
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import promiseMiddleware from 'redux-promise';
@@ -16,11 +15,11 @@ if (process.NODE_ENV !== 'production') {
   middlewares.push(require('redux-freeze')); // eslint-disable-line global-require
 }
 
-export function configureStore ({ history, cookies, i18n }, initialState) { // eslint-disable-line
+export function configureStore({ history, i18n, req }, initialState) {
   const createStoreWithMiddleware = compose(
     applyMiddleware.apply(this, middlewares.concat([
       routerMiddleware(history),
-      thunkMiddleware.withExtraArgument({ cookies, i18n }),
+      thunkMiddleware.withExtraArgument({ i18n, req }),
     ])),
     (process.NODE_ENV !== 'production') && global.window && window.devToolsExtension ? window.devToolsExtension() : f => f
   )(createStore);

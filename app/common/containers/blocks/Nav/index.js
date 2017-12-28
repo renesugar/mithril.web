@@ -5,10 +5,9 @@ import classnames from 'classnames';
 import { Link } from 'react-router';
 import withStyles from 'nebo15-isomorphic-style-loader/lib/withStyles';
 
-import { logoutAndRedirect } from 'redux/session';
-
 import NavItem from '@components/NavItem';
 import Icon from '@components/Icon';
+import { logoutAndRedirect } from './redux';
 
 import styles from './styles.scss';
 

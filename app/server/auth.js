@@ -27,7 +27,7 @@ router.get(config.OAUTH_REDIRECT_PATH, (req, resp) => {
   }
 
   createSessionToken(req.query.code).then(({ data, meta }) => {
-    if (meta.code >= 300) {
+    if (data.error) {
       resp.redirect(`/sign-in?error=${meta.code}`);
       return;
     }
@@ -38,10 +38,14 @@ router.get(config.OAUTH_REDIRECT_PATH, (req, resp) => {
     }
 
     resp.cookie(config.AUTH_COOKIE_NAME, data.value, cookieOption);
-    resp.cookie('userId', data.user_id);
 
     resp.redirect('/tokens');
   });
+});
+
+router.delete('/logout', (req, resp) => {
+  resp.clearCookie(config.AUTH_COOKIE_NAME);
+  resp.status(204).send();
 });
 
 export default router;

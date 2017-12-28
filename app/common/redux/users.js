@@ -36,14 +36,6 @@ invoke({
   }, 'users/FETCH_USER_LIST_FAILURE'],
 });
 
-export const getUserIdFromCookies = () => (dispatch, getState, { cookies }) =>
-  cookies.get('userId', { path: '/' });
-export const removeUserIdFromCookies = () => (
-  dispatch,
-  getState,
-  { cookies }
-) => cookies.remove('userId', { path: '/' });
-
 export const getUserByToken = token => invoke({
   endpoint: `${API_URL}/admin/tokens/${token}/user`,
   method: 'GET',
