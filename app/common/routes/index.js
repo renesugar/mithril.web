@@ -55,13 +55,10 @@ export const configureRoutes = ({ store }) => { // eslint-disable-line
       const token = await store.dispatch(getToken());
       const { error } = await store.dispatch(verifyToken(token));
       if (error) {
-        console.log('verify token error');
-        console.log('token', token);
         replace({ pathname: PUBLIC_INDEX_ROUTE });
       } else {
         const { error } = await store.dispatch(fetchClients({ limit: 0 }));
         if (error) {
-          console.log('fetch clients error');
           replace({ pathname: PUBLIC_INDEX_ROUTE });
         }
       }
