@@ -8,7 +8,7 @@ import { fetchClients } from 'redux/clients';
 
 @provideHooks({
   fetch: ({ dispatch }) => Promise.all([
-    dispatch(fetchClients({ limit: null }, { useCache: true })),
+    dispatch(fetchClients({ limit: 0 }, { useCache: true })),
     dispatch(fetchRoles({ limit: null }, { useCache: true })),
     dispatch(fetchUsersList({ limit: null }, { useCache: true })),
     dispatch(fetchClientsTypes({ limit: null }, { useCache: true })),

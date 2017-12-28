@@ -40,7 +40,6 @@ import NotFoundPage from 'containers/pages/NotFoundPage';
 import { isAuthorized } from 'reducers';
 
 import { verifyToken, getToken } from 'redux/session';
-import { fetchClients } from 'redux/clients';
 
 import { PUBLIC_INDEX_ROUTE } from 'config';
 
@@ -56,11 +55,6 @@ export const configureRoutes = ({ store }) => { // eslint-disable-line
       const { error } = await store.dispatch(verifyToken(token));
       if (error) {
         replace({ pathname: PUBLIC_INDEX_ROUTE });
-      } else {
-        const { error } = await store.dispatch(fetchClients({ limit: 0 }));
-        if (error) {
-          replace({ pathname: PUBLIC_INDEX_ROUTE });
-        }
       }
     }
 
