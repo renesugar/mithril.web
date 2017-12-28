@@ -63,9 +63,7 @@ export default combineReducers({
   loading,
 });
 
-export const getOAuthToken = state => state.session.token;
-export const getOAuthUser = state => state.data.user;
-
+export const isAuthorized = state => state.session.authorized;
 
 export const getLocation = state => state.routing.locationBeforeTransitions;
 export const getForm = (state, formName) => state.form[formName];

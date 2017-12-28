@@ -37,35 +37,29 @@ import SignInPage from 'containers/pages/SignInPage';
 
 import NotFoundPage from 'containers/pages/NotFoundPage';
 
-import { getOAuthUser } from 'reducers';
+import { isAuthorized } from 'reducers';
 
-import { isLoginned, logout } from 'redux/session';
-import { fetchClients } from 'redux/clients';
+import { verifyToken, getToken } from 'redux/session';
 
 import { PUBLIC_INDEX_ROUTE } from 'config';
 
 export const configureRoutes = ({ store }) => { // eslint-disable-line
-  const requireAuth = (nextState, replace, next) =>
-    store.dispatch(isLoginned()).then((loginned) => {
-      if (!loginned) {
+  const requireAuth = async (nextState, replace, next) => {
+    if (__CLIENT__) {
+      if (!isAuthorized(store.getState())) {
         replace({ pathname: PUBLIC_INDEX_ROUTE });
-        return next();
       }
+    } else {
+      // FIXME: We should handle case when there is no token passed
+      const token = await store.dispatch(getToken());
+      const { error } = await store.dispatch(verifyToken(token));
+      if (error) {
+        replace({ pathname: PUBLIC_INDEX_ROUTE });
+      }
+    }
 
-      const currentState = store.getState();
-      const person = getOAuthUser(currentState);
-
-      if (person) return next();
-
-      return store.dispatch(fetchClients({ limit: 0 })).then((action) => {
-        if (action.error) {
-          store.dispatch(logout());
-          replace({ pathname: PUBLIC_INDEX_ROUTE });
-        }
-
-        return next();
-      });
-    });
+    return next();
+  };
 
   return (
     <Route component={App}>

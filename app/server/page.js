@@ -1,6 +1,5 @@
 import Set from 'core-js/library/fn/set';
 import arrayFrom from 'core-js/library/fn/array/from';
-import CookieDough from 'cookie-dough';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -26,20 +25,11 @@ import { configureRoutes } from '../common/routes';
 import WithStylesContext from '../common/WithStylesContext';
 
 export default () => (req, res, next) => {
-  if (__DEV__) {
-    return res.render('index', {
-      html: null,
-      reduxState: null,
-      inlineCss: null,
-      helmet: Helmet.rewind(),
-    });
-  }
-
   const memoryHistory = useRouterHistory(useQueries(createMemoryHistory))();
   const store = configureStore({
     history: memoryHistory,
-    cookies: new CookieDough(req),
     i18n: req.i18n,
+    req,
   });
   const history = syncHistoryWithStore(memoryHistory, store);
   const routes = configureRoutes({
@@ -52,7 +42,7 @@ export default () => (req, res, next) => {
 
   return match({ routes: router, location: historyLocation }, (error, redirectLocation, renderProps) => { //eslint-disable-line
     if (redirectLocation) {
-      return res.redirect(301, redirectLocation.pathname + redirectLocation.search);
+      return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (error) {
       return res.status(500).send(error.message);
     } else if (renderProps == null) {
