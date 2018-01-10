@@ -118,7 +118,8 @@ export default class UserFactors extends React.Component {
         title="Підтвердити дію"
         active={this.state.onEnable}
         theme="error"
-        confirm="Ok"
+        confirm="Так"
+        cancel="Відмінити"
         id="confirm-delete"
         onCancel={() => this.setState({ onEnable: false })}
         onConfirm={() => this.toggleFactor()}
@@ -142,7 +143,8 @@ export default class UserFactors extends React.Component {
         title="Підтвердити дію"
         active={this.state.onDelete}
         theme="error"
-        confirm="Ok"
+        confirm="Так"
+        cancel="Відмінити"
         id="confirm-active"
         onCancel={() => this.setState({ onDelete: false })}
         onConfirm={() => {
@@ -166,7 +168,8 @@ export default class UserFactors extends React.Component {
         title="Підтвердити дію"
         active={this.state.onCreate}
         theme="error"
-        confirm="Ok"
+        confirm="Так"
+        cancel="Відмінити"
         id="confirm-create"
         onCancel={() => this.setState({ onCreate: false })}
         onConfirm={() => {

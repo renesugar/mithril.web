@@ -57,7 +57,8 @@ export default class UserRoles extends React.Component {
           title={t('Are you sure?')}
           active={this.state.onDelete}
           theme="error"
-          confirm="Ok"
+          confirm="Так"
+          cancel="Відмінити"
           id="confirm-delete"
           onCancel={() => this.setState({ onDelete: false })}
           onConfirm={() => {

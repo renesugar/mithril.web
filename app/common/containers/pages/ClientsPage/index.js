@@ -10,6 +10,7 @@ import { setFilter } from 'helpers/filter';
 import { H1 } from '@components/Title';
 import Table from '@components/Table';
 import { FormRow, FormColumn } from '@components/Form';
+import FormError from 'components/FormError';
 import Button from '@components/Button';
 import Pagination from 'components/Pagination';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
@@ -17,7 +18,9 @@ import IsBlockedFilterForm from 'containers/forms/IsBlockedFilterForm';
 import ShowBy from 'containers/blocks/ShowBy';
 import ColoredText from 'components/ColoredText';
 
-import { getClients } from 'reducers';
+import { addError, clearError } from 'redux/error';
+
+import { getClients, getError } from 'reducers';
 import { fetchClients } from './redux';
 
 import styles from './styles.scss';
@@ -26,17 +29,22 @@ import styles from './styles.scss';
 @withStyles(styles)
 @translate()
 @provideHooks({
-  fetch: ({ dispatch, location: { query } }) =>
-    dispatch(fetchClients({ page_size: 5, ...query })),
+  fetch: ({ dispatch, location: { query } }) => {
+    dispatch(clearError());
+    dispatch(fetchClients({ page_size: 5, ...query }))
+      .catch((err) => {
+        dispatch(addError(err));
+      });
+  },
 })
 @connect(state => ({
   ...state.pages.ClientsPage,
   clients: getClients(state, state.pages.ClientsPage.clients),
+  fieldError: getError(state),
 }))
 export default class ClientsPage extends React.Component {
   render() {
-    const { clients = [], t, location, paging, router } = this.props;
-
+    const { clients = [], fieldError = {}, t, location, paging, router } = this.props;
     return (
       <div id="clients-page">
         <Helmet title={t('Clients')} />
@@ -50,6 +58,9 @@ export default class ClientsPage extends React.Component {
               submitBtn
               onSubmit={name => setFilter(name, { location, router })}
             />
+            {fieldError && fieldError.name &&
+              <FormError message={fieldError.name} />
+            }
           </FormColumn>
           <FormColumn>
             <FieldFilterForm
@@ -59,6 +70,9 @@ export default class ClientsPage extends React.Component {
               submitBtn
               onSubmit={user_id => setFilter(user_id, { location, router })}
             />
+            {fieldError && fieldError.user_id &&
+              <FormError message={fieldError.user_id} />
+            }
           </FormColumn>
         </FormRow>
         <FormRow>

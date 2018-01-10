@@ -5,6 +5,7 @@ import { denormalize } from 'normalizr';
 import * as schemas from 'schemas';
 
 import loading from 'redux/loading';
+import error from 'redux/error';
 
 import roles from 'redux/roles';
 import clientTypes from 'redux/client-types';
@@ -61,6 +62,7 @@ export default combineReducers({
   form,
   routing,
   loading,
+  error,
 });
 
 export const isAuthorized = state => state.session.authorized;
@@ -92,3 +94,5 @@ export const getApprovals = (state, ids) => denormalize(ids, [schemas.approval],
 export const getApproval = (state, id) => denormalize(id, schemas.approval, state.data);
 
 export const getUserRoles = (state, id) => denormalize(id, [schemas.userRole], state.data);
+
+export const getError = state => state.error;

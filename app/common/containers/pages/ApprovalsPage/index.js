@@ -13,9 +13,11 @@ import Button from '@components/Button';
 import Pagination from 'components/Pagination';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
 import { FormRow, FormColumn } from '@components/Form';
+import FormError from 'components/FormError';
 import ShowBy from 'containers/blocks/ShowBy';
+import { addError, clearError } from 'redux/error';
 
-import { getApprovals } from 'reducers';
+import { getApprovals, getError } from 'reducers';
 import { fetchApprovals } from './redux';
 
 import styles from './styles.scss';
@@ -24,16 +26,22 @@ import styles from './styles.scss';
 @withStyles(styles)
 @translate()
 @provideHooks({
-  fetch: ({ dispatch, location: { query } }) =>
-    dispatch(fetchApprovals({ page_size: 5, ...query })),
+  fetch: ({ dispatch, location: { query } }) => {
+    dispatch(clearError());
+    dispatch(fetchApprovals({ page_size: 5, ...query }))
+      .catch((err) => {
+        dispatch(addError(err));
+      });
+  },
 })
 @connect(state => ({
   ...state.pages.ApprovalsPage,
   approvals: getApprovals(state, state.pages.ApprovalsPage.approvals),
+  fieldError: getError(state),
 }))
 export default class ApprovalsPage extends React.Component {
   render() {
-    const { approvals = [], t, location, paging, router } = this.props;
+    const { approvals = [], fieldError = {}, t, location, paging, router } = this.props;
 
     return (
       <div id="approvals-page">
@@ -49,6 +57,9 @@ export default class ApprovalsPage extends React.Component {
               initialValues={location.query}
               onSubmit={client_id => setFilter(client_id, { location, router })}
             />
+            {fieldError && fieldError.client_id &&
+              <FormError message={fieldError.client_id} />
+            }
           </FormColumn>
           <FormColumn>
             <FieldFilterForm
@@ -59,6 +70,9 @@ export default class ApprovalsPage extends React.Component {
               initialValues={location.query}
               onSubmit={user_id => setFilter(user_id, { location, router })}
             />
+            {fieldError && fieldError.user_id &&
+              <FormError message={fieldError.user_id} />
+            }
           </FormColumn>
           <FormColumn>
             <ShowBy

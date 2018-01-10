@@ -14,10 +14,12 @@ import ColoredText from 'components/ColoredText';
 import { H1 } from '@components/Title';
 import Line from '@components/Line';
 
-import { getUserByID, updateUser, blockUser, unblockUser } from 'redux/users';
+import { getUserByID, blockUser, unblockUser } from 'redux/users';
 import { fetchUserRoles, deleteUserRole } from 'redux/user-roles';
 import { fetchUserFactors, deleteUserFactor, enableUserFactor, disableUserFactor, createUserFactor } from 'redux/user-factors';
 import { getUser } from 'reducers';
+
+import { onUpdateUser } from './redux';
 
 import styles from './styles.scss';
 
@@ -32,7 +34,7 @@ import styles from './styles.scss';
 @connect((state, { params: { id } }) => ({
   user: getUser(state, id),
 }), ({
-  updateUser,
+  onUpdateUser,
   deleteUserRole,
   blockUser,
   unblockUser,
@@ -45,7 +47,7 @@ export default class UserUpdatePage extends React.Component {
   render() {
     const {
       onDeleteUser = () => {},
-      updateUser = () => {},
+      onUpdateUser = () => {},
 
       blockUser = () => {},
       unblockUser = () => {},
@@ -66,7 +68,7 @@ export default class UserUpdatePage extends React.Component {
           initialValues={user}
           update
           onDelete={onDeleteUser}
-          onSubmit={values => updateUser(values, user.id)}
+          onSubmit={values => onUpdateUser(values, user.id)}
         />
         <Line />
 

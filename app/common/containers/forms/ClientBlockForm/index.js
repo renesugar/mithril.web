@@ -4,6 +4,7 @@ import { reduxForm, Field, getFormValues, reset } from 'redux-form';
 import { push } from 'react-router-redux';
 
 import Form, { FormRow, FormBlock, FormColumn } from '@components/Form';
+import FormError from 'components/FormError';
 import FieldInput from '@components/reduxForm/FieldInput';
 import { Confirm } from '@components/Popup';
 import { H1 } from '@components/Title';
@@ -26,6 +27,7 @@ export default class ClientBlockForm extends React.Component {
     const {
       onUnBlockClient = () => {},
       onBlockClient = () => {},
+      error,
       client = {},
       values = [],
       push,
@@ -55,6 +57,7 @@ export default class ClientBlockForm extends React.Component {
             </FormColumn>
           </FormRow>
         </FormBlock>
+        <FormError message={error} />
 
         <Confirm
           title="Підтвердіть дію"

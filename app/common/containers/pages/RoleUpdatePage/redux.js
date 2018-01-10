@@ -5,7 +5,7 @@ import { apiErrorToSubmissionError } from '../../../helpers/apiErrorTransformer'
 export const deleteRole = id => dispatch =>
   dispatch(fromRoles.deleteRole(id))
     .then((action) => {
-      if (action.error) throw action;
+      if (action.error) throw apiErrorToSubmissionError(action.payload.response);
       dispatch(push('/roles'));
       return action;
     });
