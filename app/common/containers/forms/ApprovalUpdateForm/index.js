@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import { reduxForm, Field, getFormValues } from 'redux-form';
 import { reduxFormValidate } from 'react-nebo15-validate';
+import FormError from 'components/FormError';
 
 import { Confirm } from '@components/Popup';
 import Form, { FormRow, FormBlock, FormButtons, FormColumn } from '@components/Form';
@@ -61,7 +62,7 @@ export default class ApprovalUpdateForm extends React.Component {
     return JSON.stringify(values) !== JSON.stringify(this.state.savedValues);
   }
   render() {
-    const { handleSubmit, submitting, onDelete, t } = this.props;
+    const { handleSubmit, error, submitting, onDelete, t } = this.props;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)}>
         <FormBlock>
@@ -86,6 +87,7 @@ export default class ApprovalUpdateForm extends React.Component {
             </FormColumn>
           </FormRow>
         </FormBlock>
+        <FormError message={error} />
         <FormButtons>
           <ButtonsGroup>
             <Button type="submit" disabled={!this.isChanged}>{

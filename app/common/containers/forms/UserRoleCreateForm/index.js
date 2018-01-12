@@ -7,6 +7,7 @@ import { reduxFormValidate } from 'react-nebo15-validate';
 
 import Form, { FormRow, FormBlock, FormButtons, FormColumn } from '@components/Form';
 import Button from '@components/Button';
+import FormError from 'components/FormError';
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
 import { Select } from '@components/Select';
 
@@ -56,7 +57,7 @@ export default class UserRoleCreateForm extends React.Component {
     return JSON.stringify(values) !== JSON.stringify(this.state.savedValues);
   }
   render() {
-    const { handleSubmit, submitting, t, data } = this.props;
+    const { handleSubmit, error, submitting, t, data } = this.props;
     const is_changed = this.isChanged;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit)}>
@@ -100,6 +101,8 @@ export default class UserRoleCreateForm extends React.Component {
             </FormColumn>
           </FormRow>
         </FormBlock>
+        <FormError message={error} />
+
         <FormButtons>
           <Button type="submit" disabled={!is_changed}>
             { submitting ? t('Saving...') : t('Create User Role') }

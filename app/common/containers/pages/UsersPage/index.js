@@ -12,11 +12,14 @@ import Table from '@components/Table';
 import Button from '@components/Button';
 import ColoredText from 'components/ColoredText';
 import { FormRow, FormColumn } from '@components/Form';
+import FormError from 'components/FormError';
 import FieldFilterForm from 'containers/forms/FieldFilterForm';
 import Pagination from 'components/Pagination';
 import ShowBy from 'containers/blocks/ShowBy';
 
-import { getUsers } from 'reducers';
+import { addError, clearError } from 'redux/error';
+
+import { getUsers, getError } from 'reducers';
 import { fetchUsersList } from './redux';
 
 import styles from './styles.scss';
@@ -25,16 +28,22 @@ import styles from './styles.scss';
 @withStyles(styles)
 @translate()
 @provideHooks({
-  fetch: ({ dispatch, location: { query } }) =>
-    dispatch(fetchUsersList({ page_size: 5, ...query })),
+  fetch: ({ dispatch, location: { query } }) => {
+    dispatch(clearError());
+    dispatch(fetchUsersList({ page_size: 5, ...query }))
+      .catch((err) => {
+        dispatch(addError(err));
+      });
+  },
 })
 @connect(state => ({
   ...state.pages.UsersPage,
   users: getUsers(state, state.pages.UsersPage.users),
+  fieldError: getError(state),
 }))
 export default class UsersPage extends React.Component {
   render() {
-    const { users = [], t, router, location, paging } = this.props;
+    const { users = [], fieldError = {}, t, router, location, paging } = this.props;
 
     return (
       <div id="users-page">
@@ -49,6 +58,9 @@ export default class UsersPage extends React.Component {
               submitBtn
               onSubmit={values => setFilter(values, { router, location })}
             />
+            {fieldError && fieldError.email &&
+              <FormError message={fieldError.email} />
+            }
           </FormColumn>
           <FormColumn>
             <FieldFilterForm
@@ -58,6 +70,9 @@ export default class UsersPage extends React.Component {
               submitBtn
               onSubmit={values => setFilter(values, { router, location })}
             />
+            {fieldError && fieldError.id &&
+              <FormError message={fieldError.id} />
+            }
           </FormColumn>
         </FormRow>
         <FormRow>

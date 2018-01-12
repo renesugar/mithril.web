@@ -8,6 +8,7 @@ import FieldInput from '@components/reduxForm/FieldInput';
 import { Confirm } from '@components/Popup';
 import { H1 } from '@components/Title';
 import Button from '@components/Button';
+import FormError from 'components/FormError';
 
 const getValues = getFormValues('user-block-form');
 
@@ -26,6 +27,7 @@ export default class UserBlockForm extends React.Component {
     const {
       onBlockUser = () => {},
       onUnblockUser = () => {},
+      error,
       user = {},
       values = [],
       push,
@@ -56,6 +58,7 @@ export default class UserBlockForm extends React.Component {
             </FormColumn>
           </FormRow>
         </FormBlock>
+        <FormError message={error} />
 
         <Confirm
           title="Підтвердіть дію"

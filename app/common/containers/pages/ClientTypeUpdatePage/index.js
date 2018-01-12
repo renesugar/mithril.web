@@ -9,8 +9,8 @@ import FormPageWrapper from 'containers/blocks/FormPageWrapper';
 import ClientTypesForm from 'containers/forms/ClientTypesForm';
 
 import { getClientType } from 'reducers';
-import { fetchClientTypeByID, updateClientType } from 'redux/client-types';
-import { deleteClientType } from './redux';
+import { fetchClientTypeByID } from 'redux/client-types';
+import { deleteClientType, updateClientType } from './redux';
 
 import styles from './styles.scss';
 
