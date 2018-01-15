@@ -96,9 +96,9 @@ export default class TokenForm extends React.Component {
       <Form onSubmit={handleSubmit(this.onSubmit)}>
         <FormBlock>
           <FormRow>
-            <FormColumn>
-              {
-                !create && (
+            {
+              !create && (
+                <FormColumn>
                   <Field
                     name="id"
                     component={FieldInput}
@@ -106,9 +106,9 @@ export default class TokenForm extends React.Component {
                     placeholder="b5e3318e-2192-4676"
                     disabled={disabled}
                   />
-                )
-              }
-            </FormColumn>
+                </FormColumn>
+              )
+            }
             <FormColumn>
               <Field
                 name="name"
