@@ -22,9 +22,6 @@ const getValues = getFormValues('token-form');
 @reduxForm({
   form: 'token-form',
   validate: reduxFormValidate({
-    id: {
-      required: true,
-    },
     name: {
       required: true,
     },
@@ -100,13 +97,17 @@ export default class TokenForm extends React.Component {
         <FormBlock>
           <FormRow>
             <FormColumn>
-              <Field
-                name="id"
-                component={FieldInput}
-                labelText={t('ID')}
-                placeholder="b5e3318e-2192-4676"
-                disabled={disabled}
-              />
+              {
+                !create && (
+                  <Field
+                    name="id"
+                    component={FieldInput}
+                    labelText={t('ID')}
+                    placeholder="b5e3318e-2192-4676"
+                    disabled={disabled}
+                  />
+                )
+              }
             </FormColumn>
             <FormColumn>
               <Field
