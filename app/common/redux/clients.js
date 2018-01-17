@@ -58,6 +58,7 @@ export const createClient = body => invoke({
       ...body,
       client_type_id: body.client_type_id.name,
       user_id: body.user_id.name,
+      priv_settings: JSON.parse(body.priv_settings),
     },
   },
 });
@@ -79,6 +80,7 @@ export const updateClient = (id, body) => invoke({
       ...body,
       client_type_id: body.client_type_id.name,
       user_id: body.user_id.name,
+      priv_settings: JSON.parse(body.priv_settings),
     },
   },
 });

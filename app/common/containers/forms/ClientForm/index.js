@@ -11,12 +11,13 @@ import FormError from 'components/FormError';
 import FieldInput from '@components/reduxForm/FieldInput';
 import Button, { ButtonsGroup } from '@components/Button';
 import ConfirmFormChanges from 'containers/blocks/ConfirmFormChanges';
+import { H3 } from '@components/Title';
+import ColoredText from 'components/ColoredText';
 import { Select } from '@components/Select';
 
 import styles from './styles.scss';
 
 const getValues = getFormValues('client-form');
-
 
 @translate()
 @withStyles(styles)
@@ -38,7 +39,6 @@ const getValues = getFormValues('client-form');
   }),
   initialValues: {
     settings: {},
-    priv_settings: {},
   },
 })
 @connect(state => ({
@@ -76,9 +76,11 @@ export default class ClientForm extends React.Component {
   render() {
     const {
       handleSubmit,
-      error,
-      submitting,
+      onSearchUsers,
       onDelete,
+      submitting,
+      error,
+      initialValues,
       create,
       update,
       t,
@@ -115,7 +117,13 @@ export default class ClientForm extends React.Component {
                 labelText={t('User ID')}
                 emptyText={t('Not found')}
                 placeholder={t('Select user')}
-                onChangeSearch={val => this.setState({ user_search: val })}
+                onChangeSearch={value =>
+                  value && onSearchUsers(value).then(() =>
+                      this.setState({
+                        user_search: value.toLowerCase(),
+                      })
+                    )
+                }
                 options={data.users
                   .filter(i => new RegExp(this.state.user_search).test(i.email) === true)
                   .map(i => ({
@@ -129,10 +137,8 @@ export default class ClientForm extends React.Component {
               <Field
                 name="client_type_id"
                 component={Select}
-                searchable
                 labelText={t('Client type id')}
                 placeholder={t('Select client type')}
-                onChangeSearch={val => this.setState({ client_type_search: val })}
                 options={data.clientTypes
                   .filter(i => new RegExp(this.state.client_type_search).test(i.name) === true)
                   .map(i => ({
@@ -146,14 +152,39 @@ export default class ClientForm extends React.Component {
           <FormRow>
             <FormColumn>
               <Field
-                name="secret"
+                name="priv_settings"
                 component={FieldInput}
-                readOnly
-                disabled
-                labelText={t('Client secret')}
+                labelText="Налаштування"
               />
             </FormColumn>
           </FormRow>
+          {
+            !create && (
+              <FormRow>
+                <FormColumn>
+                  <Field
+                    name="secret"
+                    component={FieldInput}
+                    readOnly
+                    disabled
+                    labelText={t('Client secret')}
+                  />
+                </FormColumn>
+              </FormRow>
+            )
+          }
+          {
+            update && (<FormRow>
+              <H3>Cтатус: {initialValues.is_blocked ?
+                <ColoredText color="red">Заблокований</ColoredText> :
+                <ColoredText color="green">Активний</ColoredText>
+                }
+              </H3>
+              <H3>Причина {initialValues.is_blocked ? 'заблокування' : 'розблокування'}:
+                {initialValues.block_reason ? ` ${initialValues.block_reason}` : ' відсутня'}
+              </H3>
+            </FormRow>)
+          }
         </FormBlock>
         <FormError message={error} />
         <FormButtons>

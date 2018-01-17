@@ -9,7 +9,7 @@ import ClientForm from 'containers/forms/ClientForm';
 
 import { getAllUsers, getAllClientTypes } from 'reducers';
 
-import { onCreateClient } from './redux';
+import { onCreateClient, onSearchUsers } from './redux';
 
 import styles from './styles.scss';
 
@@ -18,16 +18,23 @@ import styles from './styles.scss';
 @connect(state => ({
   users: getAllUsers(state),
   clientTypes: getAllClientTypes(state),
-}), ({ onCreateClient }))
+}), ({ onCreateClient, onSearchUsers }))
 export default class ClientCreatePage extends React.Component {
   render() {
-    const { users = [], clientTypes = [], onCreateClient, t } = this.props;
+    const {
+      users = [],
+      clientTypes = [],
+      onCreateClient,
+      onSearchUsers,
+      t,
+    } = this.props;
     return (
       <FormPageWrapper id="create-client-page" title={t('Create client')} back="/clients">
         <Helmet title={t('Create client')} />
         <ClientForm
           onSubmit={onCreateClient}
           data={{ users, clientTypes }}
+          onSearchUsers={onSearchUsers}
           create
         />
       </FormPageWrapper>
