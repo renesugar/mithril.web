@@ -39,6 +39,7 @@ const getValues = getFormValues('client-form');
   }),
   initialValues: {
     settings: {},
+    priv_settings: JSON.stringify({ access_type: 'DIRECT' }),
   },
 })
 @connect(state => ({
