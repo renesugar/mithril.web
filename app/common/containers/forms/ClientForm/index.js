@@ -3,7 +3,7 @@ import withStyles from 'nebo15-isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import { reduxForm, Field, getFormValues } from 'redux-form';
-import { reduxFormValidate } from 'react-nebo15-validate';
+import { reduxFormValidate, ErrorMessage } from 'react-nebo15-validate';
 
 import { Confirm } from '@components/Popup';
 import Form, { FormRow, FormBlock, FormButtons, FormColumn } from '@components/Form';
@@ -35,6 +35,9 @@ const getValues = getFormValues('client-form');
     },
     client_type_id: {
       required: true,
+    },
+    priv_settings: {
+      json: true,
     },
   }),
   initialValues: {
@@ -156,7 +159,9 @@ export default class ClientForm extends React.Component {
                 name="priv_settings"
                 component={FieldInput}
                 labelText="Налаштування"
-              />
+              >
+                <ErrorMessage when="json">{'Не вірний формат. Приклад: {"broker_scope":"some:scope","access_type":"DIRECT | BROKER"}'}</ErrorMessage>
+              </Field>
             </FormColumn>
           </FormRow>
           {
