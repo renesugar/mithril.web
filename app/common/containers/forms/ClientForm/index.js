@@ -37,6 +37,7 @@ const getValues = getFormValues('client-form');
       required: true,
     },
     priv_settings: {
+      required: true,
       json: true,
     },
   }),
