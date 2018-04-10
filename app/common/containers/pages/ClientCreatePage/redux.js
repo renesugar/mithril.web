@@ -16,8 +16,8 @@ export const onCreateClient = body => dispatch =>
 
 export const getUsers = createAction('clientUpdatePage/GET_USERS');
 
-export const onSearchUsers = name => dispatch =>
-  dispatch(fromUsers.fetchUsersList({ name, page_size: 200 })).then(
+export const onSearchUsers = email => dispatch =>
+  dispatch(fromUsers.fetchUsersList({ email, page_size: 200 })).then(
     (action) => {
       if (action.error && action.payload.status !== 400) {
         throw action;

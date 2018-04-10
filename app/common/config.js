@@ -16,7 +16,7 @@ export const SITEMAP_HOSTNAME = process.env.SITEMAP_HOSTNAME || 'https://mithril
 export const LANG_COOKIE_NAME = 'lang';
 export const AUTH_COOKIE_NAME = config.AUTH_COOKIE_NAME || process.env.AUTH_COOKIE_NAME || 'authorization';
 
-export const CLIENT_ID = config.CLIENT_ID || process.env.CLIENT_ID || '62c19cb9-1811-41a0-888d-3e5d9d963389';
+export const CLIENT_ID = config.CLIENT_ID || process.env.CLIENT_ID || '5b9b740d-5f67-4365-8a58-8e415c970fe9';
 export const SCOPES = config.SCOPES || process.env.SCOPES || '';
 export const OAUTH_URL = config.OAUTH_URL || process.env.OAUTH_URL || 'http://auth-dev.ehealth.world/sign-in';
 export const OAUTH_REDIRECT_PATH = config.OAUTH_REDIRECT_PATH || process.env.OAUTH_REDIRECT_PATH || '/auth/redirect';
